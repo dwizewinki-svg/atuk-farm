@@ -5,10 +5,812 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Panel - Atuk Farm</title>
   <!-- Load Decap CMS Script -->
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atuk Farm - Peternakan Kambing Terpercaya & Professional</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#16a34a',
+                        primaryDark: '#15803d',
+                        secondary: '#f59e0b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .smooth-scroll { scroll-behavior: smooth; }
+        .badge-incoming {
+            background-color: #fef08a;
+            color: #854d0e;
+        }
+        .badge-available {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        .modal-active {
+            overflow: hidden;
+        }
+        /* Custom scrollbar for admin dashboard */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 smooth-scroll flex flex-col min-h-screen font-sans">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Brand Logo & Title -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 bg-emerald-600 group-hover:bg-emerald-700 transition rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md shadow-emerald-200">
+                        <i class="fa-solid fa-cow"></i>
+                    </div>
+                    <span id="nav-brand-name" class="font-bold text-xl sm:text-2xl text-slate-800 tracking-tight">Atuk Farm</span>
+                </a>
+                
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex space-x-8 font-medium text-slate-600 text-sm">
+                    <a href="#home" class="hover:text-emerald-600 transition">Beranda</a>
+                    <a href="#about" class="hover:text-emerald-600 transition">Tentang Kami</a>
+                    <a href="#products" class="hover:text-emerald-600 transition">Produk & Layanan</a>
+                    <a href="#why-us" class="hover:text-emerald-600 transition">Keunggulan</a>
+                    <a href="#gallery" class="hover:text-emerald-600 transition">Galeri Kandang</a>
+                    <a href="#contact" class="hover:text-emerald-600 transition">Kontak</a>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <a id="nav-wa-btn" href="https://wa.me/6281234567890" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 sm:px-5 py-2.5 rounded-full font-semibold text-xs sm:text-sm transition flex items-center gap-2 shadow-md shadow-emerald-200">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> <span class="hidden sm:inline">Hubungi WA</span>
+                    </a>
+                    <button onclick="openAdminLogin()" class="p-2.5 text-slate-500 hover:text-emerald-600 rounded-full hover:bg-slate-100 transition" title="Admin CMS Panel">
+                        <i class="fa-solid fa-user-gear text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative bg-gradient-to-br from-emerald-900 via-emerald-800 to-slate-900 text-white py-20 sm:py-28 px-4 overflow-hidden">
+        <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#4ade80_1px,transparent_1px)] [background-size:20px_20px]"></div>
+        <div class="max-w-5xl mx-auto text-center relative z-10 space-y-6">
+            <span class="inline-block bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full backdrop-blur-sm shadow-sm">
+                🌿 Peternakan Kambing Professional & Syariah
+            </span>
+            <h1 id="hero-title" class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                Peternakan Kambing Terpercaya & Berkualitas
+            </h1>
+            <p id="hero-subtitle" class="text-base sm:text-lg lg:text-xl text-emerald-100/90 max-w-2xl mx-auto font-light leading-relaxed">
+                Menyediakan Susu Murni Segar, Anakan Unggul, serta Kambing Aqiqah & Kurban Sesuai Syariat.
+            </p>
+            <div class="pt-4 flex flex-wrap justify-center gap-4">
+                <a id="hero-wa-btn" href="https://wa.me/6281234567890" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-7 py-3.5 rounded-full font-bold shadow-lg shadow-amber-500/20 transition flex items-center gap-2 text-sm sm:text-base">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Konsultasi via WhatsApp
+                </a>
+                <a href="#products" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-7 py-3.5 rounded-full font-semibold backdrop-blur-sm transition text-sm sm:text-base">
+                    Lihat Produk & Layanan
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="aspect-video sm:aspect-square rounded-3xl overflow-hidden shadow-xl bg-slate-100">
+                        <img id="about-img" src="https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?auto=format&fit=crop&q=80&w=800" alt="Peternakan Atuk Farm" class="w-full h-full object-cover">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 bg-emerald-600 text-white p-6 rounded-2xl shadow-xl hidden sm:block">
+                        <p class="text-3xl font-black">100%</p>
+                        <p class="text-xs uppercase tracking-wider font-medium text-emerald-100">Sehat & Terawat</p>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <span class="text-emerald-600 font-bold tracking-wider text-xs sm:text-sm uppercase">Tentang Atuk Farm</span>
+                    <h2 id="about-title" class="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">Komitmen Kami Pada Kualitas & Kebersihan Kandang</h2>
+                    <p id="about-desc" class="text-slate-600 leading-relaxed text-base">
+                        Atuk Farm adalah peternakan kambing yang berfokus pada perawatan berkualitas, pakan bernutrisi, dan kebersihan kandang. Kami berkomitmen menyediakan hewan ternak yang sehat, unggul, serta produk olahan kambing yang higienis.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 pt-2">
+                        <div class="border-l-4 border-emerald-500 pl-4 py-1 bg-emerald-50/50 rounded-r-xl">
+                            <h4 class="font-bold text-slate-800 text-sm">Pakan Nutrisi Lengkap</h4>
+                            <p class="text-xs text-slate-500 mt-0.5">Formulasi pakan terjamin & alami</p>
+                        </div>
+                        <div class="border-l-4 border-emerald-500 pl-4 py-1 bg-emerald-50/50 rounded-r-xl">
+                            <h4 class="font-bold text-slate-800 text-sm">Terpantau Bebas Penyakit</h4>
+                            <p class="text-xs text-slate-500 mt-0.5">Pemeriksaan rutin berkala</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section id="products" class="py-20 bg-slate-50 border-y border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-emerald-600 font-bold tracking-wider text-xs sm:text-sm uppercase">Produk & Layanan</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Katalog Utama Atuk Farm</h2>
+                <p class="text-slate-600 text-sm sm:text-base">Pilih kebutuhan hewan ternak dan produk olahan sesuai keinginan Anda.</p>
+            </div>
+
+            <!-- Dynamic Products Grid -->
+            <div id="products-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Products dynamically generated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY US SECTION -->
+    <section id="why-us" class="py-20 bg-emerald-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-amber-400 font-bold tracking-wider text-xs sm:text-sm uppercase">Keunggulan</span>
+                <h2 class="text-3xl sm:text-4xl font-bold">Mengapa Memilih Atuk Farm?</h2>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-emerald-800/40 p-6 sm:p-8 rounded-2xl border border-emerald-700/50 hover:border-amber-400/50 transition">
+                    <i class="fa-solid fa-heart-pulse text-3xl text-amber-400 mb-4 block"></i>
+                    <h3 class="font-bold text-lg mb-2">Hewan Sehat & Terawat</h3>
+                    <p class="text-emerald-100/80 text-xs sm:text-sm leading-relaxed">Dipelihara dengan pakan bernutrisi tinggi dan pengawasan kesehatan berkala.</p>
+                </div>
+                <div class="bg-emerald-800/40 p-6 sm:p-8 rounded-2xl border border-emerald-700/50 hover:border-amber-400/50 transition">
+                    <i class="fa-solid fa-kaaba text-3xl text-amber-400 mb-4 block"></i>
+                    <h3 class="font-bold text-lg mb-2">Sesuai Syariat</h3>
+                    <p class="text-emerald-100/80 text-xs sm:text-sm leading-relaxed">Hewan Aqiqah dan Kurban dipastikan memenuhi kriteria umur dan syarat sah agama.</p>
+                </div>
+                <div class="bg-emerald-800/40 p-6 sm:p-8 rounded-2xl border border-emerald-700/50 hover:border-amber-400/50 transition">
+                    <i class="fa-solid fa-truck-fast text-3xl text-amber-400 mb-4 block"></i>
+                    <h3 class="font-bold text-lg mb-2">Layanan Antar</h3>
+                    <p class="text-emerald-100/80 text-xs sm:text-sm leading-relaxed">Siap mengantar hewan ternak maupun produk langsung ke lokasi tujuan Anda.</p>
+                </div>
+                <div class="bg-emerald-800/40 p-6 sm:p-8 rounded-2xl border border-emerald-700/50 hover:border-amber-400/50 transition">
+                    <i class="fa-solid fa-hand-holding-dollar text-3xl text-amber-400 mb-4 block"></i>
+                    <h3 class="font-bold text-lg mb-2">Harga Transparan</h3>
+                    <p class="text-emerald-100/80 text-xs sm:text-sm leading-relaxed">Bebas pilih hewan langsung di kandang atau lewat dokumentasi video/foto.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-emerald-600 font-bold tracking-wider text-xs sm:text-sm uppercase">Dokumentasi</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Galeri Suasana Peternakan</h2>
+                <p class="text-slate-600 text-sm sm:text-base">Melihat lebih dekat kondisi kebersihan dan perawatan hewan di Atuk Farm.</p>
+            </div>
+
+            <!-- Dynamic Gallery Grid -->
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Gallery items rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / CONTACT -->
+    <footer id="contact" class="bg-slate-900 text-slate-300 py-16 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">
+                            <i class="fa-solid fa-cow"></i>
+                        </div>
+                        <span id="footer-brand" class="font-bold text-xl text-white">Atuk Farm</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Peternakan kambing terpercaya. Menyediakan produk olahan berkualitas dan hewan ternak sehat sesuai kriteria syariah.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Kontak & Alamat</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-emerald-500 w-4"></i>
+                            <span id="footer-phone">+62 812-3456-7890</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-emerald-500 w-4 mt-1"></i>
+                            <span id="footer-address">Kecamatan/Kota, Indonesia</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Jam Operasional Kandang</h4>
+                    <p class="text-sm text-slate-400">Senin - Minggu: 08:00 - 17:00 WIB</p>
+                    <p class="text-xs text-slate-500 mt-2">*Menerima kunjungan langsung dengan konfirmasi terlebih dahulu via WhatsApp.</p>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+                &copy; 2026 Atuk Farm. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="login-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-bold text-slate-900">Admin Login</h3>
+                <button onclick="closeAdminLogin()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <p class="text-xs text-slate-500">Gunakan Passcode default: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-emerald-600 font-bold">admin123</code></p>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Passcode Admin</label>
+                <input type="password" id="admin-passcode" class="w-full px-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm" placeholder="Masukkan password admin">
+            </div>
+            <p id="login-error" class="text-xs text-red-500 hidden font-medium">Password salah! Silakan coba lagi.</p>
+            <button onclick="checkAdminPasscode()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl transition text-sm">
+                Masuk Dashboard Admin
+            </button>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL MODAL -->
+    <div id="admin-panel" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-white w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
+            <!-- Header -->
+            <div class="p-5 sm:p-6 bg-slate-800 text-white flex justify-between items-center">
+                <div>
+                    <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-emerald-400"></i> Dashboard Pengelola Content (CMS)
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Kelola informasi, ubah gambar, tambah & hapus produk secara langsung</p>
+                </div>
+                <button onclick="closeAdminPanel()" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="bg-slate-100 border-b border-slate-200 px-6 flex gap-4 text-xs sm:text-sm font-semibold">
+                <button id="tab-btn-products" onclick="switchAdminTab('products')" class="py-3 border-b-2 border-emerald-600 text-emerald-700 font-bold">
+                    <i class="fa-solid fa-box-open mr-1"></i> Kelola Produk
+                </button>
+                <button id="tab-btn-general" onclick="switchAdminTab('general')" class="py-3 border-b-2 border-transparent text-slate-600 hover:text-slate-900">
+                    <i class="fa-solid fa-pen-to-square mr-1"></i> Informasi Website
+                </button>
+                <button id="tab-btn-gallery" onclick="switchAdminTab('gallery')" class="py-3 border-b-2 border-transparent text-slate-600 hover:text-slate-900">
+                    <i class="fa-solid fa-images mr-1"></i> Kelola Galeri
+                </button>
+            </div>
+            
+            <!-- Tab Content Container -->
+            <div class="p-6 overflow-y-auto flex-1 text-sm">
+                
+                <!-- TAB 1: PRODUCT MANAGEMENT (CRUD) -->
+                <div id="tab-content-products" class="space-y-6">
+                    <div class="flex justify-between items-center border-b pb-4">
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-base">Daftar Produk & Layanan</h4>
+                            <p class="text-xs text-slate-500">Tambah, edit foto/harga, atau hapus produk yang tampil di website</p>
+                        </div>
+                        <button onclick="openAddProductModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                            <i class="fa-solid fa-plus"></i> Tambah Produk Baru
+                        </button>
+                    </div>
+
+                    <div id="admin-product-list" class="space-y-4">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- TAB 2: GENERAL SITE SETTINGS -->
+                <div id="tab-content-general" class="space-y-6 hidden">
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-emerald-600 uppercase text-xs tracking-wider border-b pb-2">Informasi Umum & Kontak</h4>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-medium mb-1 text-xs text-slate-600">Nama Bisnis</label>
+                                <input type="text" id="edit-brand" class="w-full p-2.5 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block font-medium mb-1 text-xs text-slate-600">Nomor WhatsApp (Awali 62)</label>
+                                <input type="text" id="edit-wa" class="w-full p-2.5 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-emerald-600 uppercase text-xs tracking-wider border-b pb-2">Banner Utama (Hero)</h4>
+                        <div>
+                            <label class="block font-medium mb-1 text-xs text-slate-600">Judul Utama</label>
+                            <input type="text" id="edit-hero-title" class="w-full p-2.5 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-1 text-xs text-slate-600">Sub-Judul / Tagline</label>
+                            <textarea id="edit-hero-subtitle" rows="2" class="w-full p-2.5 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-emerald-600 uppercase text-xs tracking-wider border-b pb-2">Bagian Tentang Kami</h4>
+                        <div>
+                            <label class="block font-medium mb-1 text-xs text-slate-600">Deskripsi Singkat Peternakan</label>
+                            <textarea id="edit-about-desc" rows="3" class="w-full p-2.5 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-1 text-xs text-slate-600">URL Foto Kandang Utama</label>
+                            <input type="text" id="edit-about-img" class="w-full p-2.5 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-emerald-600 uppercase text-xs tracking-wider border-b pb-2">Kontak & Alamat Footer</h4>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-medium mb-1 text-xs text-slate-600">Nomor Telepon Tampilan</label>
+                                <input type="text" id="edit-phone" class="w-full p-2.5 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block font-medium mb-1 text-xs text-slate-600">Alamat Peternakan</label>
+                                <input type="text" id="edit-address" class="w-full p-2.5 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: GALLERY MANAGEMENT -->
+                <div id="tab-content-gallery" class="space-y-6 hidden">
+                    <div class="flex justify-between items-center border-b pb-4">
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-base">Foto Galeri Kandang</h4>
+                            <p class="text-xs text-slate-500">Kelola foto-foto kegiatan & suasana peternakan yang tampil di galeri</p>
+                        </div>
+                        <button onclick="addGalleryImagePrompt()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                            <i class="fa-solid fa-plus"></i> Tambah Foto Galeri
+                        </button>
+                    </div>
+
+                    <div id="admin-gallery-list" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <!-- Dynamic Gallery List -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="p-4 bg-slate-100 border-t flex justify-between items-center">
+                <button onclick="resetData()" class="text-xs text-red-600 hover:text-red-700 font-semibold flex items-center gap-1">
+                    <i class="fa-solid fa-rotate-left"></i> Reset ke Default Awal
+                </button>
+                <div class="flex gap-2">
+                    <button onclick="closeAdminPanel()" class="px-4 py-2 border rounded-xl bg-white hover:bg-slate-50 text-xs font-semibold text-slate-600">Batal</button>
+                    <button onclick="saveAdminData()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow flex items-center gap-1.5">
+                        <i class="fa-solid fa-check"></i> Simpan Semua Perubahan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD/EDIT PRODUCT MODAL -->
+    <div id="product-form-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 id="product-modal-title" class="text-lg font-bold text-slate-900">Tambah Produk Baru</h3>
+                <button onclick="closeProductModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <input type="hidden" id="prod-id">
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Nama Produk / Layanan</label>
+                <input type="text" id="prod-title" class="w-full px-3 py-2 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="Contoh: Susu Kambing Perah Murni">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Harga Tampilan</label>
+                    <input type="text" id="prod-price" class="w-full px-3 py-2 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="Contoh: Rp 15.000 / 250ml">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Status Ketersediaan</label>
+                    <select id="prod-status" class="w-full px-3 py-2 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                        <option value="Tersedia">Tersedia</option>
+                        <option value="Segera Hadir / Pre-Order">Segera Hadir / Pre-Order</option>
+                        <option value="Stok Terbatas">Stok Terbatas</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">URL Foto Produk</label>
+                <input type="text" id="prod-img" class="w-full px-3 py-2 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="https://images.unsplash.com/...">
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Deskripsi Singkat Produk</label>
+                <textarea id="prod-desc" rows="3" class="w-full px-3 py-2 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="Jelaskan spesifikasi produk..."></textarea>
+            </div>
+
+            <div class="pt-3 flex justify-end gap-2 border-t">
+                <button onclick="closeProductModal()" class="px-4 py-2 border rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-50">Batal</button>
+                <button onclick="saveProductItem()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow">Simpan Produk</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // Initial Default Data State
+        const defaultData = {
+            brandName: 'Atuk Farm',
+            waNumber: '6281234567890',
+            heroTitle: 'Peternakan Kambing Terpercaya & Berkualitas',
+            heroSubtitle: 'Menyediakan Susu Murni Segar, Anakan Unggul, serta Kambing Aqiqah & Kurban Sesuai Syariat.',
+            aboutDesc: 'Atuk Farm adalah peternakan kambing yang berfokus pada perawatan berkualitas, pakan bernutrisi, dan kebersihan kandang. Kami berkomitmen menyediakan hewan ternak yang sehat, unggul, serta produk olahan kambing yang higienis.',
+            aboutImg: 'https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?auto=format&fit=crop&q=80&w=800',
+            phone: '+62 812-3456-7890',
+            address: 'Kecamatan/Kota, Indonesia',
+            gallery: [
+                'https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?auto=format&fit=crop&q=80&w=600',
+                'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&q=80&w=600',
+                'https://images.unsplash.com/photo-1535294435445-d7249524ef2e?auto=format&fit=crop&q=80&w=600'
+            ],
+            products: [
+                {
+                    id: 1,
+                    title: 'Susu Kambing Murni (Segar & Higienis)',
+                    price: 'Rp 15.000 / 250ml',
+                    status: 'Segera Hadir / Pre-Order',
+                    desc: 'Diproduksi langsung dari perahan kambing sehat di peternakan kami secara higienis. Kaya nutrisi dan baik untuk kesehatan keluarga.',
+                    img: 'https://images.unsplash.com/photo-1528498033373-3c6c08e93d79?auto=format&fit=crop&q=80&w=600'
+                },
+                {
+                    id: 2,
+                    title: 'Anakan Kambing / Cempe Unggul',
+                    price: 'Mulai Rp 1.500.000',
+                    status: 'Tersedia',
+                    desc: 'Menyediakan anakan kambing (cempe) berkualitas untuk bibit budidaya atau penggemukan. Hasil persilangan dan perawatan terbaik.',
+                    img: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&q=80&w=600'
+                },
+                {
+                    id: 3,
+                    title: 'Kambing Aqiqah & Kurban',
+                    price: 'Mulai Rp 2.500.000',
+                    status: 'Tersedia',
+                    desc: 'Menyediakan kambing siap potong untuk ibadah Aqiqah dan Kurban. Hewan dijamin sehat, tidak cacat, dan cukup umur sesuai syariat Islam.',
+                    img: 'https://images.unsplash.com/photo-1535294435445-d7249524ef2e?auto=format&fit=crop&q=80&w=600'
+                }
+            ]
+        };
+
+        // Load data from localStorage or fallback to default
+        let appData = JSON.parse(localStorage.getItem('atuk_farm_data_v2')) || defaultData;
+
+        // Render main page elements
+        function renderData() {
+            document.getElementById('nav-brand-name').innerText = appData.brandName;
+            document.getElementById('footer-brand').innerText = appData.brandName;
+            document.getElementById('hero-title').innerText = appData.heroTitle;
+            document.getElementById('hero-subtitle').innerText = appData.heroSubtitle;
+            document.getElementById('about-desc').innerText = appData.aboutDesc;
+            document.getElementById('about-img').src = appData.aboutImg;
+            document.getElementById('footer-phone').innerText = appData.phone;
+            document.getElementById('footer-address').innerText = appData.address;
+
+            // Update WhatsApp Buttons
+            const waUrl = `https://wa.me/${appData.waNumber}`;
+            document.getElementById('nav-wa-btn').href = waUrl;
+            document.getElementById('hero-wa-btn').href = waUrl;
+
+            // Render Products Grid
+            const grid = document.getElementById('products-grid');
+            if (appData.products.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">Belum ada produk yang ditambahkan.</div>`;
+            } else {
+                grid.innerHTML = appData.products.map(p => {
+                    const isIncoming = p.status.toLowerCase().includes('segera') || p.status.toLowerCase().includes('incoming');
+                    const badgeClass = isIncoming ? 'badge-incoming' : 'badge-available';
+                    const waMessage = encodeURIComponent(`Halo ${appData.brandName}, saya mau bertanya tentang produk: ${p.title} (${p.price})`);
+
+                    return `
+                    <div class="bg-white rounded-3xl shadow-sm hover:shadow-xl border border-slate-100 overflow-hidden transition flex flex-col group">
+                        <div class="h-52 overflow-hidden relative bg-slate-100">
+                            <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400/16a34a/ffffff?text=Atuk+Farm'">
+                            <span class="absolute top-3 right-3 ${badgeClass} text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                                ${p.status}
+                            </span>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                            <div>
+                                <span class="text-emerald-600 font-bold text-sm block mb-1">${p.price}</span>
+                                <h3 class="font-bold text-lg sm:text-xl text-slate-900 mb-2 leading-snug">${p.title}</h3>
+                                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">${p.desc}</p>
+                            </div>
+                            <a href="${waUrl}?text=${waMessage}" target="_blank" class="w-full block text-center bg-emerald-50 hover:bg-emerald-600 hover:text-white text-emerald-700 font-semibold py-3 rounded-2xl transition text-xs sm:text-sm shadow-sm flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-lg"></i> Pesan / Tanya Produk
+                            </a>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+            }
+
+            // Render Gallery Grid
+            const galleryGrid = document.getElementById('gallery-grid');
+            if (!appData.gallery || appData.gallery.length === 0) {
+                galleryGrid.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400">Belum ada foto galeri.</div>`;
+            } else {
+                galleryGrid.innerHTML = appData.gallery.map((imgUrl, index) => `
+                    <div class="aspect-square rounded-2xl overflow-hidden shadow-sm bg-slate-100 group relative">
+                        <img src="${imgUrl}" alt="Dokumentasi Kandang Atuk Farm" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/600x600/16a34a/ffffff?text=Kandang+Atuk+Farm'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
+                            <span class="text-white text-xs font-semibold">Foto Kandang #${index + 1}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Modal Controls
+        function openAdminLogin() {
+            document.getElementById('login-modal').classList.remove('hidden');
+        }
+        function closeAdminLogin() {
+            document.getElementById('login-modal').classList.add('hidden');
+            document.getElementById('login-error').classList.add('hidden');
+            document.getElementById('admin-passcode').value = '';
+        }
+        function checkAdminPasscode() {
+            const pass = document.getElementById('admin-passcode').value;
+            if (pass === 'admin123') {
+                closeAdminLogin();
+                openAdminPanel();
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        function openAdminPanel() {
+            // Fill forms with current data
+            document.getElementById('edit-brand').value = appData.brandName;
+            document.getElementById('edit-wa').value = appData.waNumber;
+            document.getElementById('edit-hero-title').value = appData.heroTitle;
+            document.getElementById('edit-hero-subtitle').value = appData.heroSubtitle;
+            document.getElementById('edit-about-desc').value = appData.aboutDesc;
+            document.getElementById('edit-about-img').value = appData.aboutImg;
+            document.getElementById('edit-phone').value = appData.phone;
+            document.getElementById('edit-address').value = appData.address;
+
+            renderAdminProductList();
+            renderAdminGalleryList();
+
+            document.getElementById('admin-panel').classList.remove('hidden');
+            document.body.classList.add('modal-active');
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.body.classList.remove('modal-active');
+        }
+
+        function switchAdminTab(tabName) {
+            const tabs = ['products', 'general', 'gallery'];
+            tabs.forEach(t => {
+                const content = document.getElementById(`tab-content-${t}`);
+                const btn = document.getElementById(`tab-btn-${t}`);
+                if (t === tabName) {
+                    content.classList.remove('hidden');
+                    btn.className = "py-3 border-b-2 border-emerald-600 text-emerald-700 font-bold";
+                } else {
+                    content.classList.add('hidden');
+                    btn.className = "py-3 border-b-2 border-transparent text-slate-600 hover:text-slate-900";
+                }
+            });
+        }
+
+        // Admin Product Management (CRUD)
+        function renderAdminProductList() {
+            const container = document.getElementById('admin-product-list');
+            if (appData.products.length === 0) {
+                container.innerHTML = `<p class="text-center py-6 text-slate-400">Tidak ada produk.</p>`;
+                return;
+            }
+
+            container.innerHTML = appData.products.map(p => `
+                <div class="bg-slate-50 border rounded-2xl p-4 flex flex-col sm:flex-row items-center gap-4 justify-between">
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        <img src="${p.img}" class="w-16 h-16 rounded-xl object-cover bg-slate-200" onerror="this.src='https://placehold.co/100x100/16a34a/ffffff?text=Atuk'">
+                        <div>
+                            <h5 class="font-bold text-slate-900">${p.title}</h5>
+                            <p class="text-xs text-emerald-600 font-semibold">${p.price} • <span class="text-slate-500">${p.status}</span></p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <button onclick="openEditProductModal(${p.id})" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold rounded-lg transition">
+                            <i class="fa-solid fa-pen"></i> Edit
+                        </button>
+                        <button onclick="deleteProductItem(${p.id})" class="px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-700 text-xs font-semibold rounded-lg transition">
+                            <i class="fa-solid fa-trash"></i> Hapus
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openAddProductModal() {
+            document.getElementById('product-modal-title').innerText = "Tambah Produk Baru";
+            document.getElementById('prod-id').value = "";
+            document.getElementById('prod-title').value = "";
+            document.getElementById('prod-price').value = "";
+            document.getElementById('prod-status').value = "Tersedia";
+            document.getElementById('prod-img').value = "";
+            document.getElementById('prod-desc').value = "";
+
+            document.getElementById('product-form-modal').classList.remove('hidden');
+        }
+
+        function openEditProductModal(id) {
+            const prod = appData.products.find(p => p.id === id);
+            if (!prod) return;
+
+            document.getElementById('product-modal-title').innerText = "Edit Produk";
+            document.getElementById('prod-id').value = prod.id;
+            document.getElementById('prod-title').value = prod.title;
+            document.getElementById('prod-price').value = prod.price;
+            document.getElementById('prod-status').value = prod.status;
+            document.getElementById('prod-img').value = prod.img;
+            document.getElementById('prod-desc').value = prod.desc;
+
+            document.getElementById('product-form-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-form-modal').classList.add('hidden');
+        }
+
+        function saveProductItem() {
+            const id = document.getElementById('prod-id').value;
+            const title = document.getElementById('prod-title').value.trim();
+            const price = document.getElementById('prod-price').value.trim();
+            const status = document.getElementById('prod-status').value;
+            const img = document.getElementById('prod-img').value.trim();
+            const desc = document.getElementById('prod-desc').value.trim();
+
+            if (!title || !price || !img) {
+                alert("Harap isi Nama Produk, Harga, dan URL Gambar!");
+                return;
+            }
+
+            if (id) {
+                // Update existing
+                const index = appData.products.findIndex(p => p.id == id);
+                if (index !== -1) {
+                    appData.products[index] = { id: Number(id), title, price, status, img, desc };
+                }
+            } else {
+                // Add new
+                const newId = Date.now();
+                appData.products.push({ id: newId, title, price, status, img, desc });
+            }
+
+            closeProductModal();
+            renderAdminProductList();
+        }
+
+        function deleteProductItem(id) {
+            if (confirm("Apakah Anda yakin ingin menghapus produk ini?")) {
+                appData.products = appData.products.filter(p => p.id !== id);
+                renderAdminProductList();
+            }
+        }
+
+        // Gallery Admin Logic
+        function renderAdminGalleryList() {
+            const container = document.getElementById('admin-gallery-list');
+            if (!appData.gallery || appData.gallery.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-center py-6 text-slate-400">Tidak ada foto galeri.</p>`;
+                return;
+            }
+
+            container.innerHTML = appData.gallery.map((imgUrl, index) => `
+                <div class="relative group rounded-xl overflow-hidden bg-slate-200 border">
+                    <img src="${imgUrl}" class="w-full h-24 object-cover" onerror="this.src='https://placehold.co/100x100/16a34a/ffffff?text=Atuk'">
+                    <button onclick="removeGalleryImage(${index})" class="absolute top-1 right-1 bg-red-600 text-white w-6 h-6 rounded-full text-xs hover:bg-red-700 transition flex items-center justify-center shadow">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addGalleryImagePrompt() {
+            const url = prompt("Masukkan URL Gambar Foto Kandang:");
+            if (url && url.trim() !== '') {
+                if (!appData.gallery) appData.gallery = [];
+                appData.gallery.push(url.trim());
+                renderAdminGalleryList();
+            }
+        }
+
+        function removeGalleryImage(index) {
+            if (confirm("Hapus foto ini dari galeri?")) {
+                appData.gallery.splice(index, 1);
+                renderAdminGalleryList();
+            }
+        }
+
+        // Save General Admin Data
+        function saveAdminData() {
+            appData.brandName = document.getElementById('edit-brand').value.trim();
+            appData.waNumber = document.getElementById('edit-wa').value.trim();
+            appData.heroTitle = document.getElementById('edit-hero-title').value.trim();
+            appData.heroSubtitle = document.getElementById('edit-hero-subtitle').value.trim();
+            appData.aboutDesc = document.getElementById('edit-about-desc').value.trim();
+            appData.aboutImg = document.getElementById('edit-about-img').value.trim();
+            appData.phone = document.getElementById('edit-phone').value.trim();
+            appData.address = document.getElementById('edit-address').value.trim();
+
+            localStorage.setItem('atuk_farm_data_v2', JSON.stringify(appData));
+            renderData();
+            closeAdminPanel();
+        }
+
+        function resetData() {
+            if (confirm("Apakah Anda yakin ingin mengembalikan seluruh data website ke tampilan awal?")) {
+                localStorage.removeItem('atuk_farm_data_v2');
+                appData = JSON.parse(JSON.stringify(defaultData));
+                renderData();
+                closeAdminPanel();
+            }
+        }
+
+        // Initialize App on load
+        window.onload = function() {
+            renderData();
+        };
+    </script>
+</body>
+</html>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <!-- Decap CMS App -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
 </body>
 </html>
